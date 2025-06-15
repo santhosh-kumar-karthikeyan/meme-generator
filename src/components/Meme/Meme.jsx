@@ -7,17 +7,12 @@ function Meme() {
         bottomText: "walk into Mordor",
         imgUrl: "http://i.imgflip.com/1bij.jpg"
     });
-    function setText(oldMeme,newText, mode) {
-        if (mode === "top")
-            return {
-                ...oldMeme,
-                topText : newText
-            }
-        else 
-            return {
-                ...oldMeme,
-                bottomText : newText
-            }
+    function setText(evt) {
+        const { name, value } = evt.currentTarget;
+        setMeme(oldMeme => ({
+            ...oldMeme,
+            [name]: value
+        }));
     }
     function handleSubmit() {
         console.log("Submitted");
@@ -30,7 +25,8 @@ function Meme() {
                         type="text"
                         placeholder="One does not simply"
                         name="topText"
-                        onChange={(evt) => setMeme((oldMeme) => setText(oldMeme,evt.target.value,"top"))}
+                        onChange={setText}
+                        value={meme.topText}
                     />
                 </label>
 
@@ -39,7 +35,8 @@ function Meme() {
                         type="text"
                         placeholder="Walk into Mordor"
                         name="bottomText"
-                        onChange={(evt) => setMeme((oldMeme) => setText(oldMeme,evt.target.value,"bottom"))}
+                        onChange={setText}
+                        value={meme.bottomText}
                     />
                 </label>
                 <button>Get a new meme image 🖼</button>
